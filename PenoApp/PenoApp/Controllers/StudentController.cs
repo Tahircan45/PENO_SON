@@ -17,9 +17,14 @@ namespace PenoApp.Controllers
         PenoContext _context = new PenoContext();
         // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Student> Get()
         {
-            return new string[] {  };
+
+            var blogs = _context.Students
+                .Where(id =>id.Id==2)
+                .Include(st => st.LecAndStudents)
+                .ToList();
+                return  blogs;      
         }
 
         // GET api/<controller>/5
@@ -33,6 +38,7 @@ namespace PenoApp.Controllers
         [HttpPost]
         public void Post([FromBody]string value)
         {
+
         }
 
         // PUT api/<controller>/5
