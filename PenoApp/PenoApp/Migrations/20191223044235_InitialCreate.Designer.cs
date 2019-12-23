@@ -9,7 +9,7 @@ using PenoApp.Data;
 namespace PenoApp.Migrations
 {
     [DbContext(typeof(PenoContext))]
-    [Migration("20191221073403_InitialCreate")]
+    [Migration("20191223044235_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,6 +57,8 @@ namespace PenoApp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LastName");
 
                     b.Property<string>("Name");
 

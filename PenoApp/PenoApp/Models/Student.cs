@@ -9,6 +9,7 @@ namespace PenoApp.Models
     {
         public int Id { set; get; }
         public String Name { set; get; }
+        public String LastName { set; get; }
         public ICollection<LecAndStudent> LecAndStudents { set; get; }
 
     }

@@ -9,8 +9,6 @@ namespace PenoApp.Data
 {
     public class PenoContext : DbContext
     {
-
-
         public DbSet<Student> Students { set; get; }
         public DbSet<Lecture> Lectures { set; get; }
         public DbSet<LecAndStudent> LecAndStudents { set; get; }
