@@ -24,9 +24,17 @@ namespace PenoApp.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> Get(int id)
+        public IEnumerable<Lecture> Get(int id)
         {
-            return await _context.Students.FindAsync(id);
+            using (var context =new PenoContext())
+            {
+                var query = (from lec in context.Lectures
+                             join las in context.LecAndStudents
+                             on lec.Id equals las.LectureId
+                             where las.StudentId == id
+                             select lec).ToList();
+                 return query;
+            }
         }
 
         // POST api/<controller>
