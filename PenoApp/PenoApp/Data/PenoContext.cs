@@ -11,7 +11,9 @@ namespace PenoApp.Data
     {
         public DbSet<Student> Students { set; get; }
         public DbSet<Lecture> Lectures { set; get; }
-        public DbSet<LecAndStudent> LecAndStudents { set; get; }
+        public DbSet<LecAndStudent> LecAndStudents { set; get; } 
+        public DbSet<Notice> Notices { set; get; }
+        public DbSet<Aca> Acas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(

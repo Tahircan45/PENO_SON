@@ -8,16 +8,17 @@ namespace PenoApp.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Lectures",
+                name: "Acas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Lectures", x => x.Id);
+                    table.PrimaryKey("PK_Acas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,6 +33,26 @@ namespace PenoApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Lectures",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    AcaId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lectures", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Lectures_Acas_AcaId",
+                        column: x => x.AcaId,
+                        principalTable: "Acas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,6 +81,26 @@ namespace PenoApp.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Notices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    content = table.Column<string>(nullable: true),
+                    LectureId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notices_Lectures_LectureId",
+                        column: x => x.LectureId,
+                        principalTable: "Lectures",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_LecAndStudents_LectureId",
                 table: "LecAndStudents",
@@ -69,6 +110,16 @@ namespace PenoApp.Migrations
                 name: "IX_LecAndStudents_StudentId",
                 table: "LecAndStudents",
                 column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lectures_AcaId",
+                table: "Lectures",
+                column: "AcaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notices_LectureId",
+                table: "Notices",
+                column: "LectureId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -77,10 +128,16 @@ namespace PenoApp.Migrations
                 name: "LecAndStudents");
 
             migrationBuilder.DropTable(
-                name: "Lectures");
+                name: "Notices");
 
             migrationBuilder.DropTable(
                 name: "Students");
+
+            migrationBuilder.DropTable(
+                name: "Lectures");
+
+            migrationBuilder.DropTable(
+                name: "Acas");
         }
     }
 }
