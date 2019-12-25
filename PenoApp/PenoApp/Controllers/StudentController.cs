@@ -19,7 +19,7 @@ namespace PenoApp.Controllers
         [HttpGet]
         public string Get()
         {
-            return "";
+            return "asd";
         }
 
         // GET api/<controller>/5
